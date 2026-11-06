@@ -1,0 +1,16 @@
+{
+  "name": "minishop-cambodia-fullstack-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MiniShop Cambodia - Multi-Store E-Commerce Platform",
+  "scripts": {
+    "start": "echo 'MiniShop Cambodia. Available commands:\n  npm run start:backend   (Port 8000)\n  npm run start:admin     (Port 3001)\n  npm run start:user      (Port 3000)\n  npm run start:dashboard (Port 3002)\n  npm run start:reseller  (Port 3005)\n  npm run start:telegram  (Port 3006)\n  npm run install:all'",
+    "start:admin": "cd Frontend_Admin && ./start.sh",
+    "start:backend": "cd Backend_API && ./start.sh",
+    "start:user": "cd Frontend_User && ./start.sh",
+    "start:dashboard": "cd Frontend_Dashboard_User && ./start.sh",
+    "start:reseller": "cd Frontend_Reseller && ./start.sh",
+    "start:telegram": "cd Frontend_Telegram_Mini_APP && ./start.sh",
+    "install:all": "npm --prefix Frontend_Admin install && npm --prefix Frontend_User install && npm --prefix Frontend_Dashboard_User install && npm --prefix Frontend_Reseller install && npm --prefix Frontend_Telegram_Mini_APP install"
+  }
+}
