@@ -16,21 +16,6 @@ const initialForm = {
   customer_country: '', customer_note: '',
 };
 
-// Cambodia timezone display (Asia/Phnom_Penh, UTC+7)
-const fmtKH = (iso) => {
-  const d = iso ? new Date(iso) : new Date();
-  if (Number.isNaN(d.getTime())) return iso;
-  try {
-    return d.toLocaleString(undefined, {
-      timeZone: 'Asia/Phnom_Penh',
-      year: 'numeric', month: 'short', day: 'numeric',
-      hour: '2-digit', minute: '2-digit',
-    });
-  } catch (e) {
-    return d.toLocaleString();
-  }
-};
-
 export default function Checkout() {
   const { shop } = useShop();
   const { items, totals, clear } = useCart();
@@ -180,7 +165,6 @@ export default function Checkout() {
 
   if (payment) {
     const payAmount = Number(payment.amount || order?.total || 0).toFixed(2);
-    const payTime = fmtKH(order?.created_at);
     return (
       <div className="min-h-[72vh] bg-white dark:bg-gray-800 py-8 px-4">
         <div className="max-w-sm mx-auto flex flex-col items-center">

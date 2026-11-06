@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { FiArrowLeft, FiCopy, FiDollarSign, FiPercent, FiShoppingBag, FiTag, FiUsers } from 'react-icons/fi';
+import { FiArrowLeft, FiCopy, FiPercent, FiShoppingBag, FiTag } from 'react-icons/fi';
 import { getReseller } from '../api';
 import { Loading } from '../components/ui';
-
-const STORE_URL = process.env.REACT_APP_STORE_URL || 'http://localhost:3000';
 
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleDateString() : '—');
 

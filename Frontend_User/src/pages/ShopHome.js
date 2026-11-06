@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiCreditCard, FiHeadphones, FiShoppingBag, FiTruck } from 'react-icons/fi';
 import { useShop } from '../contexts/ShopContext';
 import { useLanguage } from '../i18n';
-import { getProducts, getCategories, fullUrl } from '../api';
+import { getProducts, getCategories } from '../api';
 import Slideshow from '../components/Slideshow';
 import CategoryNav from '../components/CategoryNav';
 import ProductCard from '../components/ProductCard';

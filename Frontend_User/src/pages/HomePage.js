@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   FiArchive, FiArrowRight, FiCheck, FiCreditCard, FiFileText, FiLayers,
   FiMail, FiMessageCircle, FiSend, FiShoppingBag, FiSliders, FiSmartphone,
-  FiTruck, FiUsers,
+  FiTruck,
 } from 'react-icons/fi';
 import { useLanguage } from '../i18n';
 import LanguageSwitcher from '../components/LanguageSwitcher';

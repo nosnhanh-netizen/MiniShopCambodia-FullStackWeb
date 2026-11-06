@@ -24,10 +24,11 @@ export const shopColor = (username = '') => {
  */
 export default function ShopLogo({ shop, className = '', textClassName = 'text-lg' }) {
   const [failed, setFailed] = useState(false);
+  const shopId = shop?.id;
 
   useEffect(() => {
     setFailed(false);
-  }, [shop && shop.id]);
+  }, [shopId]);
 
   if (!shop) return null;
 

@@ -8,7 +8,7 @@ import {
   listShopCategories, listShopCustomers, listShopOrders, listShopProducts,
   setShopExpiry, setShopLimits, updateCategory, updateOrderStatus, updateProduct, updateShopStatus,
 } from '../api';
-import { Empty, Loading, Modal, btnDanger, btnGhost, btnPrimary, inputCls } from '../components/ui';
+import { Empty, Loading, Modal, btnGhost, btnPrimary, inputCls } from '../components/ui';
 
 const TABS = ['Overview', 'Products', 'Orders', 'Customers', 'Categories'];
 const isExpired = (shop) => !!shop?.expires_at && new Date(shop.expires_at) < new Date();
@@ -22,6 +22,7 @@ export default function ShopDetail() {
   const [loading, setLoading] = useState(true);
 
   const loadShop = () => getShopDetail(shopId).then(setShop).catch((e) => toast.error(e?.response?.data?.detail || 'Failed to load shop'));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { loadShop().finally(() => setLoading(false)); }, [shopId]);
 
   const toggleStatus = async () => {
@@ -171,6 +172,7 @@ function ProductsTab({ shopId }) {
   const load = () => Promise.all([listShopProducts(shopId), listShopCategories(shopId)])
     .then(([p, c]) => { setProducts(p); setCats(c); })
     .finally(() => setLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [shopId]);
 
   const openCreate = () => { setEditing(null); setForm({ name: '', price: '', quantity: '', category_id: '', status: 'active', featured: false }); setModal(true); };
@@ -307,6 +309,7 @@ function OrdersTab({ shopId }) {
   const [view, setView] = useState(null);
 
   const load = () => listShopOrders(shopId).then(setOrders).finally(() => setLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [shopId]);
 
   const setStatus = async (o, status) => {
@@ -399,6 +402,7 @@ function CustomersTab({ shopId }) {
   const [search, setSearch] = useState('');
 
   const load = () => listShopCustomers(shopId, search).then(setCustomers).finally(() => setLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [shopId, search]);
 
   const remove = async (c) => {
@@ -455,6 +459,7 @@ function CategoriesTab({ shopId }) {
   const [editing, setEditing] = useState(null);
 
   const load = () => listShopCategories(shopId).then(setCats).finally(() => setLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [shopId]);
 
   const submit = async (e) => {
