@@ -41,9 +41,7 @@ export default function CreateShop() {
   const [left, setLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
   useEffect(() => {
-    getPlans().then((res) => {
-      if (Array.isArray(res) && res.length > 0) setPlans(res);
-    }).catch(() => {});
+    getPlans().then((p) => { if (Array.isArray(p) && p.length) setPlans(p); }).catch(() => {});
   }, []);
   useEffect(() => () => clearInterval(timer.current), []);
 
@@ -108,10 +106,7 @@ export default function CreateShop() {
         setStep('done'); // platform ABA not configured → shop pending admin activation
       }
     } catch (err) {
-      const msg = err?.response?.data?.detail
-        || (err?.message === 'Network Error' || !err?.response
-          ? 'Cannot connect to backend server. Make sure the backend is running and reachable over HTTPS.'
-          : 'Registration failed');
+      const msg = err?.response?.data?.detail || (!err.response ? 'Cannot connect to backend server. Make sure the backend API is running.' : 'Registration failed');
       toast.error(msg);
     } finally {
       setBusy(false);
