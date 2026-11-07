@@ -14,11 +14,17 @@ const OFFER_END = new Date(2026, 8, 7, 23, 59, 59).getTime();
 const getOfferEnd = () => OFFER_END;
 const pad = (x) => String(x).padStart(2, '0');
 
+const DEFAULT_PLANS = [
+  { id: 'starter', name: 'Starter', price: 9.99, days: 30, max_products: 20, max_categories: 10, free: true },
+  { id: 'growth', name: 'Growth', price: 55.99, days: 180, max_products: 50, max_categories: 20 },
+  { id: 'premium', name: 'Premium', price: 99.99, days: 365, max_products: 200, max_categories: 30 },
+];
+
 export default function CreateShop() {
   const { t } = useLanguage();
   const { setFromRegistration } = useOwner();
   const [params] = useSearchParams();
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState(DEFAULT_PLANS);
   const [plan, setPlan] = useState('starter');
   const [step, setStep] = useState('plan'); // plan | form | pay | done
   const [form, setForm] = useState({
@@ -35,7 +41,9 @@ export default function CreateShop() {
   const [left, setLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
   useEffect(() => {
-    getPlans().then(setPlans).catch(() => setPlans([]));
+    getPlans().then((res) => {
+      if (Array.isArray(res) && res.length > 0) setPlans(res);
+    }).catch(() => {});
   }, []);
   useEffect(() => () => clearInterval(timer.current), []);
 
@@ -100,7 +108,11 @@ export default function CreateShop() {
         setStep('done'); // platform ABA not configured → shop pending admin activation
       }
     } catch (err) {
-      toast.error(err?.response?.data?.detail || 'Registration failed');
+      const msg = err?.response?.data?.detail
+        || (err?.message === 'Network Error' || !err?.response
+          ? 'Cannot connect to backend server. Make sure the backend is running and reachable over HTTPS.'
+          : 'Registration failed');
+      toast.error(msg);
     } finally {
       setBusy(false);
     }
